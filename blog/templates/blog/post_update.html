@@ -1,0 +1,26 @@
+{% extends "base.html" %} 
+{% block cont %} 
+  {% if user.is_authenticated %}
+    <div class="col-lg-8">
+      <article>
+        <div class="container">
+          {% if user.id == post.author.id %}
+            <h1>Update Post</h1>
+            <br /><br />
+            <div class="container-md form-group">
+              <form method="POST">
+                {% csrf_token %} {{ form.as_p }}
+                <button type="submit" class="btn btn-secondary">Update</button>
+              </form>
+            </div>
+          {% else %}
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          {% endif %} 
+        </div>
+      </article>
+    </div>
+  {% else %}
+    <a class="nav-link" href="{% url 'login' %}">Login</a>
+  {% endif %} 
+{% endblock cont %} 
+{% block scripts %} {% endblock scripts %}

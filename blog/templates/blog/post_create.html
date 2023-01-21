@@ -1,0 +1,28 @@
+{% extends "base.html" %} 
+{% block cont %} 
+  {% if user.is_authenticated %}
+    <div class="col-lg-8">
+      <article>
+        <div class="container">
+          <h1>Add Post</h1>
+          <hr>
+          <br /><br />
+          <div class="container-md form-group">
+            <form method="POST">
+              {% csrf_token %} 
+              {{ form.as_p }}
+              <button type="submit" class="btn btn-secondary">Post</button>
+            </form>
+          </div>
+        </div>
+      </article>
+    </div>
+    <script>
+      var user = "{{ user.id }}";
+      document.getElementById('author').value = user;
+    </script>
+  {% else %}
+  <a class="nav-link" href="{% url 'login' %}">Login</a>
+  {% endif %} 
+{% endblock cont %} 
+{% block scripts %} {% endblock scripts %}

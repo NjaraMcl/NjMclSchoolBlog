@@ -1,0 +1,14 @@
+{% if user.is_authenticated %} 
+  {% if user.id == post.author.id %}
+    -
+    <small>
+      <a href="{% url 'blog:post_update' post.slug %}">
+        <i class="fa fa-edit"></i>
+      </a>
+      -
+      <a href="{% url 'blog:post_delete' post.slug %}">
+        <i class="fa fa-trash"></i>
+      </a>
+    </small>
+  {% endif %}
+{% endif %}

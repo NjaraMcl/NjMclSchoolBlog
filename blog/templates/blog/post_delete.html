@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block cont %} {% if user.is_authenticated %}
+<br />
+<h3>Delete Post: {{ post.title }}</h3>
+<br />
+<div class="form-group">
+  <form method="POST">
+    {% csrf_token %}
+    <strong>Are you sure !?</strong>
+    <br />
+    <button type="submit" class="btn btn-danger">Delete</button>
+  </form>
+</div>
+{% else %}
+<a class="nav-link" href="{% url 'login' %}">Login</a>
+{% endif %} {% endblock cont %} {% block scripts %} {% endblock scripts %}

@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Nj Mcl" />
+    <!-- Webpage Title -->
+    {% if page_title %}
+    <title>{{ page_title }}</title>
+    {% else %}
+    <title>School Management System</title>
+    {% endif %}
+    <!-- Bootstrap CSS -->
+    <link
+      href="{% static 'bootstrap/css/bootstrap.min.css'%}"
+      rel="stylesheet"
+    />
+    <!-- Font-Awesome CSS -->
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'fontawesome/css/fontawesome.min.css'%}"
+    />
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="{% static 'favicon.ico' %}"
+    />
+  </head>
+  <body>
+    {% include 'navbar.html' %} 
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+      {% endfor %}
+    {% endif %}
+    <div class="container mt-5">
+      <div class="row">
+        {% block cont %}
+        <!-- Content Goes here -->
+        {% endblock cont %}
+
+        {% block sidecnt %}
+          {% include 'side.html' %}
+        {% endblock sidecnt %}
+      </div>
+    </div>
+
+    <br />
+    {% include 'footer.html' %} 
+    <!-- Jquery -->
+    <script language="JavaScript" type="text/javascript" src="{% static 'jquery/jquery-3.6.3.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- NjMcl -->
+    <script type="text/javascript" src="{% static 'js/un_like.js' %}"></script>
+    {% block scripts %}
+    <!-- Scripts Goes here -->
+    {% endblock scripts %}
+  </body>
+</html>

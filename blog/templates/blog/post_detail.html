@@ -1,0 +1,68 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block cont %}
+
+<style>
+  .thumbs-blue {
+      color: blue;
+  }
+  .thumbs-red {
+    color: red;
+}
+</style>
+<div class="col-lg-8">
+  <article>
+    <header class="mb-4">
+      <!-- Post title-->
+      <h1 class="fw-bolder mb-1">{% block title %} {{ post.title }} {% endblock title %}</h1>
+        <!-- Post meta content-->
+        <div class="text-muted fst-italic mb-2">
+          <div id="catp"></div>
+          {% include 'blog/editDel.html' %}
+        </div>
+        <!-- Post categories-->
+        <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
+        <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
+    </header>
+    <section class="mb-5">
+      <p class="card-text">{{ post.content|safe }}</p>
+    </section>
+    {% if user.is_authenticated %}
+      <div class="row">
+        <div class="col-auto">
+          <form action="{% url 'blog:post_like' post.pk %}" method="POST" class="like-form" id="{{ post.pk}}">
+            {% csrf_token %}
+            <button type="submit", class="btn btn-primary btn-sm like-btn{{ post.pk}}", id="like-btn", name="post_id", value="{{ post.pk }}">
+              <div class="row">
+                <div class="col-auto">
+                  <i class="fa fa-light fa-thumbs-up" id="thumbs-like"></i>
+                </div> 
+                <div class="col-auto like-count{{ post.pk}}">{{ total_likes }}</div>
+              </div>
+            </button>        
+          </form>
+        </div>
+        <div class="col-auto">
+          <form action="{% url 'blog:post_unlike' post.pk %}" method="POST" class="unlike-form" id="{{ post.pk}}">
+            {% csrf_token %} 
+            <button type="submit", class="btn btn-danger btn-sm unlike-btn{{ post.pk}}", id="unlike-btn", name="post_id", value="{{ post.pk }}">
+              <div class="row">
+                <div class="col-auto"><i class="fa fa-light fa-thumbs-down" id="thumbs-unlike"></i></div>
+                <div class="col-auto unlike-count{{ post.pk}}">{{ total_unlikes }}</div>
+              </div>
+            </button>
+          </form>
+        </div>
+      </div>
+    {% endif %}
+  </article>
+</div>
+<script>
+  var postdata = {{ postdata|safe }};
+</script>
+{% endblock cont %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'js/post_detail.js' %}"></script>
+{% endblock scripts %}
+
