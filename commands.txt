@@ -1,4 +1,7 @@
 pip install coverage
+coverage run --omit='*/venv/*' manage.py test
+coverage html
 pip install djangorestframework
+pip freeze > requirementes.txt
 python manage.py startapp <app name>
 python manage.py check --deploy
