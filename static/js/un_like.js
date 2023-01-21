@@ -3,6 +3,7 @@ $(document).ready(function() {
         event.preventDefault();
         const post_id = $(this).attr('id')
         const url = $(this).attr('action')
+        console.log(url);
 
         $.ajax({
           type: "POST",
@@ -34,7 +35,7 @@ $(document).ready(function() {
         event.preventDefault();
         const post_id = $(this).attr('id')
         const url = $(this).attr('action')
-        
+
         $.ajax({
           type: "POST",
           url: url,

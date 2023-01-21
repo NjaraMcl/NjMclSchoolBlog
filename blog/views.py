@@ -11,8 +11,10 @@ import json
 
 def likeView(request, pk):
     if request.method == "POST":
-        post = get_object_or_404(Post, id=request.POST.get("post_id"))
+        print(request.POST.get("post_id"))
+        post = get_object_or_404(Post, id=pk)
         unliked = post.unlikes.filter(id=request.user.id).exists()
+        liked = False
         if post.likes.filter(id=request.user.id).exists():
             post.likes.remove(request.user)
             liked = False
@@ -32,8 +34,9 @@ def likeView(request, pk):
 
 def unlikeView(request, pk):
     if request.method == "POST":
-        post = get_object_or_404(Post, id=request.POST.get("post_id"))
+        post = get_object_or_404(Post, id=pk)
         liked = post.likes.filter(id=request.user.id).exists()
+        unliked = False
         if post.unlikes.filter(id=request.user.id).exists():
             post.unlikes.remove(request.user)
             unliked = False
@@ -62,6 +65,8 @@ class PostDetail(generic.DetailView):
 
     def get(self, request, *args, **kwargs):
         post = get_object_or_404(Post, id=self.kwargs["pk"])
+        author = post.author
+        author = serializers.serialize("json", [author])
         postdata = serializers.serialize("json", [post])
         if post:
             if post.likes.filter(id=request.user.id).exists():
@@ -83,6 +88,7 @@ class PostDetail(generic.DetailView):
                 "page_title": post.title,
                 "post": post,
                 "postdata": json.dumps(postdata),
+                "author": json.dumps(author),
             },
         )
 
