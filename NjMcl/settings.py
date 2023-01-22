@@ -42,11 +42,13 @@ INSTALLED_APPS = [
     "members.apps.MembersConfig",
     "blog_api.apps.BlogApiConfig",
     "rest_framework",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -142,7 +144,9 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.AllowAny",
     ]
 }
-
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:3000",
+]
 from django.contrib.messages import constants as messages
 
 MESSAGE_TAGS = {
