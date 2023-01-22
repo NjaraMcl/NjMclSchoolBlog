@@ -11,6 +11,7 @@
     {% else %}
     <title>School Management System</title>
     {% endif %}
+    {% load static %}
     <!-- Bootstrap CSS -->
     <link
       href="{% static 'bootstrap/css/bootstrap.min.css'%}"
@@ -33,5 +34,9 @@
   </head>
   <body>
     <div id="root"></div>
+    <div>
+      {{ datetime|date:"Y-m-d H:i:"}}
+    </div>
+    <script src="{% static 'js/app.js' %}"></script>
   </body>
 </html>
