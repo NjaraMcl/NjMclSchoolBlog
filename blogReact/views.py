@@ -1,17 +1,24 @@
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy, reverse
+from django.core import serializers
 from django.views import generic
-from .models import Post
+from blog.models import Post
 from django.http import JsonResponse
+import json
+
+
+def index(request):
+    return render(request, "index.html")
 
 
 def PostList(request):
-    if request.method == "GET":
-        post = Post.objects.filter(status=1).order_by("-created_on")
-        return JsonResponse(post, safe=False)
+    queryset = Post.objects.filter(status=1).order_by("-created_on")
+    json_data = serializers.serialize("json", queryset)
+    postData = json.loads(json_data)
+    return JsonResponse(postData, content_type="application/json", safe=False)
 
 
 def PostDetail(request, pk):
-    if request.method == "GET":
-        postdetail = get_object_or_404(Post, pk=pk)
-        return JsonResponse(postdetail, safe=False)
+    poste = get_object_or_404(Post, pk=pk)
+    postdat = serializers.serialize("json", [poste])
+    postdetail = json.dumps(postdat)
+    return JsonResponse(postdetail, content_type="application/json", safe=False)
