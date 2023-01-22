@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "blog_api.apps.BlogApiConfig",
     "rest_framework",
     "corsheaders",
+    "blogReact",
 ]
 
 MIDDLEWARE = [
